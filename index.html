@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binay Family Tree</title>
+    <link rel="icon" type="image/x-icon" src="Photo/Tree_logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <nav>
+        <div class="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10.5" cy="10.5" r="6.5" stroke="#F2EDE4" stroke-width="2"/>
+                <line x1="15.5" y1="15.5" x2="21" y2="21" stroke="#F2EDE4" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <input type="text" id="search-input" class="search-input" placeholder="Search a family member..." autocomplete="off"/>
+            <ul id="search-suggestions" class="search-suggestions"></ul>
+        </div>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="content.html">Content</a></li>
+        </ul>
+    </nav>               
+    <main>
+        <div class="progress-bar">
+            <div class="progress-step progress-step-active" data-title="Home"></div>
+            <div class="progress-step" data-title="Gen 1"></div>
+            <div class="progress-step" data-title="Gen 2"></div>
+            <div class="progress-step" data-title="TBC"></div>
+        </div>
+        <!-- ── Home ── -->
+        <section class="gen-section" id="home">
+            <div class="home-inner">
+                <span class="home-eyebrow fade-item">Binay Family Archive</span>
+                <h1 class="home-title fade-item">Family Tree of Binay</h1>
+                <div class="home-divider fade-item"></div>
+                <p class="home-sub fade-item">
+                    Tracing the Binay family across two generations,
+                    from Manila to Makati.
+                    <br>
+                    A Dinasty of Binay
+                </p>
+
+                <div class="home-stats fade-item">
+                    <div class="stat"><strong>2</strong><span>Generations</span></div>
+                    <div class="stat"><strong>7</strong><span>Members</span></div>
+                    <div class="stat"><strong>1986</strong><span>Begin</span></div>
+                </div>
+
+                <a href="#gen-1" class="home-cta fade-item">Explore the Tree ↓</a>
+            </div>
+        </section>
+        <!-- ── Generation 1 ── -->
+        <section class="gen-section" id="gen-1">
+            <div class="gen-inner">
+                <div class="gen-label fade-item">1st Generation</div>
+                <div class="gen-nodes">
+
+                    <div class="node root fade-item">
+                        <div class="node-photo"><span class="placeholder-icon"><img
+                            src="Photo\jejomar_binay.png" alt="👤"></span></div>
+                        <div class="node-info">
+                            <span class="node-name">Jejomar “Jojo” Binay Sr.</span>
+                            <span class="node-dates">1986–1998 <br> 2001–2010 <br>  VP: 2010–2016</span>
+                        </div>
+                        <div class="hcard hcard-right">
+                            <strong class="hc-name">Jejomar “Jojo” Binay Sr.</strong>
+                            <span class="hc-role">Patriarch</span>
+                            <ul>
+                                <li><b>Born:</b> November 11, 1942</li>
+                                <li><b>Died:</b> ----</li>
+                                <li><b>Birthplace:</b> Paco, Manila, Metro Manila, Philippines</li>
+                                <li><b>Spouse:</b> Elenita “Ellen” Binay</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="node root fade-item">
+                        <div class="node-photo"><span class="placeholder-icon"><img
+                            src="Photo\images.png" alt="👤"></span></div>
+                        <div class="node-info">
+                            <span class="node-name">Elenita “Ellen” Binay</span>
+                            <span class="node-dates">1998–2001</span>
+                        </div>
+                        <div class="hcard hcard-left">
+                            <strong class="hc-name">Elenita “Ellen” Binay</strong>
+                            <span class="hc-role">Matriarch</span>
+                            <ul>
+                                <li><b>Born:</b> November 25, 1943</li>
+                                <li><b>Died:</b> ----</li>
+                                <li><b>Birthplace:</b>  Angat, Bulacan, Central Luzon, Philippines</li>
+                                <li><b>Spouse:</b> Jejomar “Jojo” Binay Sr.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Generation 2 — card pops to the RIGHT ── -->
+        <section class="gen-section" id="gen-2">
+            <div class="gen-inner">
+                <div class="gen-label fade-item">2nd Generation</div>
+                <div class="gen-nodes">
+
+                    <div class="node fade-item">
+                        <div class="node-photo"><span class="placeholder-icon"><img
+                            src="Photo\JEJOMAR_BINAY_JR.png" alt="👤"></span></div>
+                        <div class="node-info">
+                            <span class="node-name">Jejomar “Junjun” Binay Jr. </span>
+                            <span class="node-dates">2010–2015.</span>
+                        </div>
+                        <div class="hcard hcard-left">
+                            <strong class="hc-name">Jejomar “Junjun” Binay Jr. </strong>
+                            <span class="hc-role">Son</span>
+                            <ul>
+                                <li><b>Born:</b> July 12, 1977</li>
+                                <li><b>Birthplace:</b> Quezon City, Metro Manila, Philippines</li>
+                                <li><b>Spouse:</b> ----</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="node fade-item">
+                        <div class="node-photo"><span class="placeholder-icon"><img
+                            src="Photo\Abby.png" alt="👤"></span></div>
+                        <div class="node-info">
+                            <span class="node-name">Mar-Len Abigail “Abby” Binay</span>
+                            <span class="node-dates">2016–2025</span>
+                        </div>
+                        <div class="hcard hcard-left">
+                            <strong class="hc-name">Mar-Len Abigail “Abby” Binay</strong>
+                            <span class="hc-role">Daughter</span>
+                            <ul>
+                                <li><b>Born:</b> December 12, 1975</li>
+                                <li><b>Birthplace:</b> Quezon City, Metro Manila, Philippines</li>
+                                <li><b>Spouse:</b> Luis Jose Angel “Luis” Campos Jr.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="node fade-item">
+                        <div class="node-photo"><span class="placeholder-icon"><img
+                            src="Photo\Anne.png" alt="👤"></span></div>
+                        <div class="node-info">
+                            <span class="node-name">Marita Angeline “Anne” Binay Alcantara</span>
+                            <span class="node-dates"> ---- </span>
+                        </div>
+                        <div class="hcard hcard-right">
+                            <strong class="hc-name">Marita Angeline “Anne” Binay Alcantara</strong>
+                            <span class="hc-role">Daughter</span>
+                            <ul>
+                                <li><b>Born:</b> Birthdate: May 12, 1973</li>
+                                <li><b>Birthplace:</b> Quezon City, Metro Manila, Philippines</li>
+                                <li><b>Spouse:</b> ----</li>
+                            </ul>
+                        
+                        </div>
+                    </div>
+
+                    <div class="node fade-item">
+                        <div class="node-photo"><span class="placeholder-icon"><img
+                            src="Photo\NANCY.png" alt="👤"></span></div>
+                        <div class="node-info">
+                            <span class="node-name">Maria Lourdes Nancy Sombillo Binay-Angeles</span>
+                            <span class="node-dates">2013–2025</span>
+                        </div>
+                        <div class="hcard hcard-right">
+                            <strong class="hc-name">Maria Lourdes Nancy Sombillo Binay-Angeles</strong>
+                            <span class="hc-role">Daughter</span>
+                            <ul>
+                                <li><b>Born:</b> May 12, 1973</li>
+                                <li><b>Birthplace:</b> Sampaloc, Manila, Metro Manila, Philippines</li>
+                                <li><b>Spouse:</b> Jejomar “Junjun” Binay Jr. </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="node fade-item no-shift">
+                        <div class="node-photo"><span class="placeholder-icon"><img
+                            src="Photo\Luis.png" alt="👤"></span></div>
+                        <div class="node-info">
+                            <span class="node-name">Luis Jose Angel “Luis” Campos Jr. </span>
+                            <span class="node-dates">2016-2025</span>
+                        </div>
+                        <div class="hcard hcard-left">
+                            <strong class="hc-name">Luis Jose Angel “Luis” Campos Jr. </strong>
+                            <span class="hc-role">Spouse of Mar-Len Abigail “Abby” Binay</span>
+                            <ul>
+                                <li><b>Born:</b> May 12, 1979</li>
+                                <li><b>Birthplace:</b> Quezon City, Metro Manila, Philippines</li>
+                                <li><b>Spouse:</b> Mar-Len Abigail “Abby” Binay</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── To Be Continued ── -->
+        <section class="gen-section" id="home">
+            <div class="home-inner">
+                <span class="home-eyebrow fade-item">Binay Family Archive</span>
+                <h1 class="home-title fade-item">Family Tree of Binay</h1>
+                <div class="home-divider fade-item"></div>
+                <p class="home-sub fade-item">
+                    Tracing the Binay family across two generations,
+                    from Manila to Makati.
+                </p>
+
+                <div class="home-stats fade-item">
+                    <div class="stat"><strong>2</strong><span>Generations</span></div>
+                    <div class="stat"><strong>7</strong><span>Members</span></div>
+                    <div class="stat"><strong>1986</strong><span>Begin</span></div>
+                </div>
+
+                <a href="#gen-1" class="home-cta fade-item">To Be Continued ↑</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Sinaunang Hiyas &mdash; Binay Family Archive</p>
+    </footer>
+
+    <script src="index.js" defer>
+    </script>
+</body>
+</html>     

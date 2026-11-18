@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;600&family=Inter:wght@400;500&family=Montserrat:wght@500;800&display=swap');
+
+/* ── Variables (same theme as index.css) ─────────────── */
+:root {
+  --bg:        #0E1038;
+  --bg-alt:    #171A52;
+  --text:      #FFFFFF;
+  --text-soft: #C9C6EA;
+  --gold:      #F2B84B;
+
+  --color-primary:   #7C4DFF;
+  --color-secondary: #F2EDE4;
+  --color-accent:    #F2B84B;
+  --color-highlight: #2A2F7A;
+  --color-dark:      #080A2B;
+  --color-muted:     #9A97C7;
+  --line:            #2A2F7A;
+  --nav-height:      56px;
+
+  --font-display: "Montserrat", "Segoe UI", sans-serif;
+  --font-body:    "Lora", "Georgia", serif;
+  --font-ui:      "Inter", "Segoe UI", sans-serif;
+}
+
+[hidden] { display: none !important; }
+
+/* ── No page scroll on this page ─────────────────────── */
+html {
+    overflow-y: hidden;          /* overrides index.css "overflow-y: scroll" */
+    scroll-snap-type: none;
+}
+
+/* ── Layout: sidebar + main ──────────────────────────── */
+.layout {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1rem;
+    height: 100vh;
+    padding: calc(var(--nav-height) + 1rem) 1rem 1rem;
+    overflow: hidden;
+}
+
+/* ── Sidebar ─────────────────────────────────────────── */
+aside {
+    background-color: var(--bg-alt);
+    border-radius: 12px;
+    padding: 0.6rem;
+    height: 100%;
+    overflow-y: auto;            /* only the sidebar scrolls */
+    align-self: stretch;
+}
+.side-title { display: none; }
+
+.people-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+}
+
+/* ── Each person box ─────────────────────────────────── */
+.people {
+    background-color: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 0.35rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.people:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+    box-shadow: 0 8px 20px rgba(242,184,75,0.2);
+}
+.people.selected {
+    border-color: var(--gold);
+    box-shadow: 0 8px 20px rgba(242,184,75,0.25);
+}
+.people img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: var(--color-highlight);   /* shows while src is empty */
+}
+.people-name {
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.25;
+}
+
+/* ── Main: photo box | information box ───────────────── */
+.layout main {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 1rem;
+    padding: 0;                  /* removes the extra 56px from index.css */
+    height: 100%;
+    min-height: 0;
+}
+
+.box {
+    background-color: var(--bg-alt);
+    border-radius: 12px;
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.photo-box,
+.info-box {
+    min-height: 0;
+    height: 100%;
+}
+
+/* Photo box */
+.photo-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--color-highlight);
+}
+.photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.photo-box::after {              /* purple fade at the bottom of the photo */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(14,16,56,0.85), transparent 50%);
+    pointer-events: none;
+}
+#photo-placeholder { font-size: 6rem; opacity: 0.5; }
+
+/* enlarge animation each time a new person is picked */
+.photo-box.pop img,
+.photo-box.pop #photo-placeholder {
+    animation: enlarge 0.4s ease;
+}
+@keyframes enlarge {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+}
+
+/* Information box */
+.info-box {
+    padding: 2rem 2.5rem;
+    overflow-y: auto;            /* long bios scroll inside the box */
+}
+.info-box h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+}
+.info-box h3 {
+    font-family: var(--font-display);
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+}
+.info-box p {
+    line-height: 1.7;
+    color: var(--text-soft);
+}
+
+/* ── Mobile: stack everything and allow page scroll ──── */
+@media (max-width: 800px) {
+    html { overflow-y: auto; }
+    .layout { height: auto; overflow: visible; grid-template-columns: 1fr; }
+    aside { height: auto; max-height: none; }
+    .people-grid { grid-template-columns: repeat(6, 1fr); }
+    .layout main { grid-template-columns: 1fr; height: auto; }
+    .photo-box { height: 50vh; }
+    .info-box { height: auto; min-height: 40vh; }
+}

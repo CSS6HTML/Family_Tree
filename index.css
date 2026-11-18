@@ -1,0 +1,564 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;600&family=Inter:wght@400;500&family=Montserrat:wght@500;800&display=swap');
+
+/* ── Variables ──────────────────────────────────────── */
+:root {
+  --bg:        #0E1038;   /* midnight navy */
+  --bg-alt:    #171A52;   /* alternate section */
+  --text:      #FFFFFF;
+  --text-soft: #C9C6EA;   /* lavender subtext */
+  --gold:      #F2B84B;   /* bokeh-light accent */
+
+  --color-primary:   #7C4DFF;   /* violet */
+  --color-secondary: #F2EDE4;   /* kept: used as light text color */
+  --color-accent:    #F2B84B;
+  --color-highlight: #2A2F7A;
+  --color-dark:      #080A2B;
+  --color-muted:     #9A97C7;
+  --line:            #2A2F7A;
+  --nav-height:      56px;
+
+  --font-display: "Montserrat", "Segoe UI", sans-serif;
+  --font-body:    "Lora", "Georgia", serif;
+  --font-ui:      "Inter", "Segoe UI", sans-serif;
+}
+
+/* ── Reset ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+body {
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(124,77,255,0.25), transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(242,184,75,0.10), transparent 35%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100%;
+}
+
+/* ── Nav ─────────────────────────────────────────────── */
+nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    height: var(--nav-height);
+    background: linear-gradient(90deg, #1B1464, #4B2A9B);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.navbar { list-style: none; display: flex; gap: 0.25rem; flex-shrink: 0; }
+.navbar li a {
+    font-family: var(--font-ui);
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.navbar li a:hover { background: rgba(255,255,255,0.15); }
+
+/* ── Search ──────────────────────────────────────────── */
+.search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    max-width: 340px;
+}
+.search-icon { width: 20px; height: 20px; flex-shrink: 0; opacity: 0.85; }
+.search-input {
+    flex: 1;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    padding: 0.42rem 0.85rem;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    color: #fff;
+    outline: none;
+    transition: background 0.2s, border-color 0.2s;
+}
+.search-input::placeholder { color: rgba(255,255,255,0.6); }
+.search-input:focus {
+    background: rgba(255,255,255,0.22);
+    border-color: rgba(255,255,255,0.7);
+}
+.search-suggestions {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0; right: 0;
+    background-color: var(--color-dark);
+    border-radius: 8px;
+    list-style: none;
+    padding: 0.3rem 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    z-index: 200;
+    display: none;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.search-suggestions.open { display: block; }
+.search-suggestions li a {
+    display: block;
+    padding: 0.55rem 1rem;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: background 0.15s;
+}
+.search-suggestions li a:hover { background: rgba(124,77,255,0.35); color: #fff; }
+.search-suggestions li a span.match { color: var(--gold); font-weight: 600; }
+.search-no-results {
+    padding: 0.55rem 1rem;
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    font-style: italic;
+}
+
+/* ── Progress Steps ─────────────────────────────────── */
+.progress-bar {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 900;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 56px;
+}
+
+/* connecting line behind the dots */
+.progress-bar::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-muted);
+    z-index: 0;
+}
+
+.progress-step {
+    position: relative;
+    z-index: 1;
+    width: 18px;
+    height: 18px;
+    background-color: var(--bg);
+    border: 2px solid var(--color-muted);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    flex-shrink: 0;
+}
+
+.progress-step::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: top center;
+    margin-top: 6px;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    white-space: nowrap;
+}
+
+.progress-step:hover {
+    transform: scale(1.35);
+    border-color: var(--gold);
+}
+.progress-step-active {
+    background-color: var(--gold);
+    border-color: var(--gold);
+    transform: scale(1.35);
+    box-shadow: 0 0 0 4px rgba(242, 184, 75, 0.25);
+}
+
+/* ── Main ────────────────────────────────────────────── */
+main { padding-top: var(--nav-height); }
+
+#home {
+    background-color: transparent;
+    background-image: radial-gradient(circle at 50% 40%, rgba(124,77,255,0.25), transparent 60%);
+}
+
+.home-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.4rem;
+    max-width: 700px;
+}
+
+.home-eyebrow {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.home-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7vw, 4.8rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    color: var(--text);
+}
+
+.home-divider {
+    width: 90px;
+    height: 3px;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+}
+
+.home-sub {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-soft);
+    max-width: 520px;
+}
+
+.home-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 0.8rem;
+}
+.stat { display: flex; flex-direction: column; gap: 0.2rem; }
+.stat strong {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--gold);
+}
+.stat span {
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.home-cta {
+    margin-top: 1rem;
+    font-family: var(--font-ui);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+    background: linear-gradient(90deg, #7C4DFF, #4B2A9B);
+    text-decoration: none;
+    padding: 0.75rem 1.6rem;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(124,77,255,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.home-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(124,77,255,0.5);
+}
+
+/* stagger the hero items (the .gen-nodes delays don't apply here) */
+.home-inner .fade-item:nth-child(1) { transition-delay: 0.05s; }
+.home-inner .fade-item:nth-child(2) { transition-delay: 0.15s; }
+.home-inner .fade-item:nth-child(3) { transition-delay: 0.25s; }
+.home-inner .fade-item:nth-child(4) { transition-delay: 0.35s; }
+.home-inner .fade-item:nth-child(5) { transition-delay: 0.45s; }
+.home-inner .fade-item:nth-child(6) { transition-delay: 0.55s; }
+
+/* ── Gen Sections ────────────────────────────────────── */
+.gen-section {
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem 3rem;
+    position: relative;
+    overflow: visible;
+}
+#gen-1 { background-color: var(--bg); }
+#gen-2 { background-color: var(--bg-alt); }
+#gen-3 { background-color: var(--bg); }
+
+.gen-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    width: 100%;
+    max-width: 900px;
+}
+.gen-label {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    padding: 0.25rem 0.9rem;
+    border-left: 3px solid var(--gold);
+}
+.gen-nodes {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4rem;
+    flex-wrap: wrap;
+    position: relative;
+}
+.gen-nodes-wide { gap: 3rem; }
+
+/* ── Fade-in ─────────────────────────────────────────── */
+.fade-item {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease, translate 0.3s ease;
+}
+.fade-item.visible { opacity: 1; transform: translateY(0); }
+.gen-nodes .fade-item:nth-child(1) { transition-delay: 0.05s, 0.05s, 0s; }
+.gen-nodes .fade-item:nth-child(2) { transition-delay: 0.18s, 0.18s, 0s; }
+.gen-nodes .fade-item:nth-child(3) { transition-delay: 0.31s, 0.31s, 0s; }
+.gen-nodes .fade-item:nth-child(4) { transition-delay: 0.44s, 0.44s, 0s; }
+
+/* ── Node ────────────────────────────────────────────── */
+.node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 130px;
+    position: relative;
+    cursor: pointer;
+    isolation: isolate;
+}
+
+/* ── Photo Circle ────────────────────────────────────── */
+.node-photo {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--color-highlight);
+    background-color: var(--color-highlight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    overflow: hidden;
+}
+.node-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;          /* fills the circle without stretching */
+    object-position: center 20%; /* keeps faces in view; use "center top" if heads get cut */
+    display: block;
+}
+.placeholder-icon { font-size: 2.6rem; line-height: 1; user-select: none; 
+}
+
+.node:hover .node-photo {
+    border-color: var(--gold);
+    transform: scale(1.08);
+    box-shadow: 0 8px 24px rgba(124,77,255,0.5);
+}
+.node.root .node-photo {
+    width: 120px; height: 120px;
+    border-color: var(--gold);
+    border-width: 4px;
+}
+.node.child .node-photo { width: 85px; height: 85px; }
+
+/* ── Node Info ───────────────────────────────────────── */
+.node-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.15rem;
+}
+.node-name {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.25;
+}
+.node.root .node-name { font-size: 1rem; color: var(--gold); }
+.node-dates { font-family: var(--font-ui); font-size: 0.7rem; color: var(--color-muted); }
+
+/* ── Hover Card — base ───────────────────────────────── */
+.hcard {
+    position: absolute;
+    width: 240px;
+    background-color: #14173F;
+    color: var(--color-secondary);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 200;
+    border-bottom: 3px solid var(--gold);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* ── LEFT: card pops to the LEFT of the node ── */
+.hcard-right {
+    right: calc(100% + 16px);
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%) translateX(8px);
+}
+/* arrow points RIGHT toward the node */
+.hcard-right::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    border: 8px solid transparent;
+    border-left-color: #14173F;
+}
+
+/* ── RIGHT: card pops to the RIGHT of the node ── */
+.hcard-left {
+    left: calc(100% + 16px);
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%) translateX(-8px);
+}
+/* arrow points LEFT toward the node */
+.hcard-left::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    border: 8px solid transparent;
+    border-right-color: #14173F;
+}
+
+/* ── ABOVE: card pops above the node (Gen 3) ── */
+.hcard-above {
+    bottom: calc(100% + 16px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    border-bottom: none;
+    border-top: 3px solid var(--gold);
+}
+/* arrow points down */
+.hcard-above::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #14173F;
+}
+
+/* ── Reveal on hover ─────────────────────────────────── */
+.node:hover .hcard-right {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    pointer-events: auto;
+}
+.node:hover .hcard-left {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    pointer-events: auto;
+}
+.node:hover .hcard-above {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+/* ── Make room: neighbours slide away when a card pops out ── */
+/* shift = card width (240) + offset (16) − gap (64) + breathing room */
+.gen-nodes { --shift: 210px; }
+
+/* card pops to the RIGHT (.hcard-left) → push the nodes AFTER it to the right */
+.node:has(.hcard-left):hover ~ .node:not(.no-shift) {
+    translate: var(--shift) 0;
+}
+
+/* card pops to the LEFT (.hcard-right) → push the nodes BEFORE it to the left */
+.node:has(~ .node:hover .hcard-right):not(.no-shift) {
+    translate: calc(var(--shift) * -1) 0;
+}
+
+/* ── Card content ────────────────────────────────────── */
+.hc-name {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-secondary);
+    margin-bottom: 0.1rem;
+}
+.hc-role {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.68rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+}
+.hcard ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.hcard ul li {
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    color: #c8bfb8;
+    line-height: 1.4;
+}
+.hcard ul li b { color: var(--color-secondary); }
+.hc-bio {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    color: #a09890;
+    line-height: 1.5;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 0.5rem;
+}
+
+/* ── Footer ──────────────────────────────────────────── */
+footer {
+    background-color: var(--color-dark);
+    color: var(--color-muted);
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 1.2rem;
+    letter-spacing: 0.05em;
+}
